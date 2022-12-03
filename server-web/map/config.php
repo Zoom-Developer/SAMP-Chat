@@ -1,5 +1,5 @@
 <?php
     $MYSQL_HOST = "localhost";
-    $MYSQL_USER = "smitsafe_usr";
-    $MYSQL_PASSWORD = "2ueFUXHZC3UqWuwz";
-    $MYSQL_DATABASE = "smitsafe";
+    $MYSQL_USER = "sampchat";
+    $MYSQL_PASSWORD = "1234567890";
+    $MYSQL_DATABASE = "sampchat";
