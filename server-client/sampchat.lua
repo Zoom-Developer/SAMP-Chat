@@ -1,6 +1,6 @@
-script_name("SafeSmit Chat")
+script_name("SA-MP Chat")
 script_author("Zoom Developer")
-script_version("0.3.2-R2")
+script_version("0.3.2")
 script_properties("work-in-pause")
 
 local effil = require 'effil'
@@ -24,9 +24,8 @@ local opened = imgui.ImBool(false)
 local name_input = imgui.ImBuffer(128)
 local regname_input = imgui.ImBuffer(128)
 
-local url = "http://smitsafe.tk:9999/"
-local update_url = "http://smitsafe.tk/autoupdate/version.json"
-local sms_url = "http://smitsafe.tk/sms.mp3"
+local url = "http://example.com:9999/"
+local sms_url = "http://example.com/sms.mp3"
 
 function main()
     if not isSampfuncsLoaded() or not isSampLoaded() then
@@ -38,9 +37,9 @@ function main()
 
     token = getToken()
 
-    sampRegisterChatCommand("smit", send_message)
-    sampRegisterChatCommand("smit.sms", send_sms)
-    sampRegisterChatCommand("smit.menu", function()
+    sampRegisterChatCommand("chat", send_message)
+    sampRegisterChatCommand("chat.sms", send_sms)
+    sampRegisterChatCommand("chat.menu", function()
         opened.v = not opened.v
     end)
 
@@ -52,8 +51,7 @@ function main()
     setColorTheme()
 
     chatMessage(colors.selection, script.this.name, " ", script.this.version, colors.text, " успешно загружен.")
-    chatMessage("Доступные команды: ", colors.selection, "/smit, /smit.sms, /smit.menu")
-    chatMessage("Создано ", colors.selection, "Zoom Developer", colors.text, " специально для ", colors.selection, "Diablo & Smit Family")
+    chatMessage("Доступные команды: ", colors.selection, "/chat, /chat.sms, /chat.menu")
 
     auth = false
     accesed = false
@@ -80,7 +78,7 @@ function main()
             end
         )
     else
-        chatMessage("Вы не зарегистрированы в системе. Пройдите регистрацию в ", colors.selection, "/smit.menu")
+        chatMessage("Вы не зарегистрированы в системе. Пройдите регистрацию в ", colors.selection, "/chat.menu")
     end
 
     while true do
@@ -299,7 +297,7 @@ function sampev.onSetInterior(int_id)
 end
 
 function chatMessage(...)
-    local text = "[SafeSmit]: " .. colors.text
+    local text = "[SampChat]: " .. colors.text
     for _, v in pairs({...}) do
       text = text .. v
     end
@@ -316,13 +314,13 @@ function chatMessage(...)
 end
 
 function writeToken(newtoken)
-    local file = io.open(getWorkingDirectory() .. "//safesmit.ini", "w")
+    local file = io.open(getWorkingDirectory() .. "//sampchat.key", "w")
     file:write(newtoken)
     file:close()
 end
 
 function getToken()
-    local file = io.open(getWorkingDirectory() .. "//safesmit.ini", "r")
+    local file = io.open(getWorkingDirectory() .. "//sampchat.key", "r")
     if not file then return 0 end
     local token = file:read()
     file:close()
@@ -330,7 +328,7 @@ function getToken()
 end
 
 function send_message(text)
-    if token == 0 then return chatMessage("Вы не зарегистрированы в системе. Пройдите регистрацию в ", colors.selection, "/smit.menu") end
+    if token == 0 then return chatMessage("Вы не зарегистрированы в системе. Пройдите регистрацию в ", colors.selection, "/chat.menu") end
     if not auth then return chatMessage("Вы не авторизованы") end
     if not accesed then return chatMessage("Вы не имеете доступа") end
     local ip, port = sampGetCurrentServerAddress()
@@ -340,7 +338,7 @@ function send_message(text)
 end
 
 function send_sms(arg)
-    if token == 0 then return chatMessage("Вы не зарегистрированы в системе. Пройдите регистрацию в ", colors.selection, "/smit.menu") end
+    if token == 0 then return chatMessage("Вы не зарегистрированы в системе. Пройдите регистрацию в ", colors.selection, "/chat.menu") end
     if not auth then return chatMessage("Вы не авторизованы") end
     if not accesed then return chatMessage("Вы не имеете доступа") end
     if arg:find('(.+) (.+)') then
@@ -353,7 +351,7 @@ function send_sms(arg)
             end
         )
     else
-        chatMessage("Используйте: ", colors.selection, "/smit.sms ID|Имя Текст ", colors.text, "(ID* - Smit ID, не SAMP)")
+        chatMessage("Используйте: ", colors.selection, "/chat.sms ID|Имя Текст ", colors.text, "(ID* - Chat ID, не SAMP)")
     end
 end
 
