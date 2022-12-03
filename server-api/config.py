@@ -7,5 +7,5 @@ VK_TOKEN = "XXXXXXXXXXXXXX"
 GROUP_ID = 0
 VK_CHAT = 1
 
-HOST_URL = "safesmit.tk"
+HOST_URL = "example.com"
 HOST_PORT = 9999
