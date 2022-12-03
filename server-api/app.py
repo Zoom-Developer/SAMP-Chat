@@ -227,7 +227,7 @@ def vk_handler(event):
             vk_api.messages.send(chat_id = event.chat_id, random_id = 0, message = "+")
         elif not text.startswith("."):
             if not user: 
-                vk_api.messages.send(chat_id = event.chat_id, disable_mentions = 1, random_id = 0, message = f"{name}, ваш ВКонтакте не подключён к аккаунту SafeSmit\n\nКак подключить ВКонтакте:\n1. Введите /smit.menu в игре\n2. Нажмите привязать ВК\n3. Введите в данной беседе /connect [ПОЛУЧЕННЫЙ КОД]\n4. Ваш аккаунт привязан!\n\nНапишите . перед сообщением, что бы оно не отправлялось в чат")
+                    vk_api.messages.send(chat_id = event.chat_id, disable_mentions = 1, random_id = 0, message = f"{name}, ваш ВКонтакте не подключён к аккаунту SAMP Chat\n\nКак подключить ВКонтакте:\n1. Введите /chat.menu в игре\n2. Нажмите привязать ВК\n3. Введите в данной беседе /connect [ПОЛУЧЕННЫЙ КОД]\n4. Ваш аккаунт привязан!\n\nНапишите . перед сообщением, что бы оно не отправлялось в чат")
                 return
             if user['rank'] < 1:
                 vk_api.messages.send(chat_id = event.chat_id, random_id = 0, message = f"{name}, вы не имеете доступа к написанию сообщений\n\nНапишите . перед сообщением, что бы оно не отправлялось в чат")
@@ -241,7 +241,7 @@ def vk_handler(event):
 def vk_listening():
     while True:
         try:
-            longpoll = VkBotLongPoll(vk, 212366890)
+            longpoll = VkBotLongPoll(vk, GROUP_ID)
             for event in longpoll.listen():
                 threading.Thread(target=vk_handler, args=(event,)).start()
         except Exception: time.sleep(1)
